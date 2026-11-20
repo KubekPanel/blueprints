@@ -1,0 +1,29 @@
+name: Report a blueprint
+description: Broken, outdated or harmful blueprint / Сломанный, устаревший или опасный blueprint
+labels: [report]
+body:
+  - type: input
+    id: id
+    attributes:
+      label: Blueprint id / Id blueprint'а
+      placeholder: com.someone.game
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What's wrong / Что не так
+      options:
+        - Doesn't install or start / Не ставится или не запускается
+        - Downloads from an unofficial source / Качает не из официального источника
+        - Harmful or suspicious behaviour / Вредное или подозрительное поведение
+        - Something else / Другое
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details / Подробности
+      description: Kubek version, OS, logs, what you expected / Версия Kubek, ОС, логи, что ожидали
+    validations:
+      required: true
