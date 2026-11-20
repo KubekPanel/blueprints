@@ -1,0 +1,26 @@
+# BeamMP server config, docs: https://docs.beammp.com/server/server-maintenance/
+# Kubek filled it in when the server was created, edit it here from now on
+
+[General]
+# Key from https://keymaster.beammp.com/, the server won't start without it
+AuthKey = "{{AUTH_KEY}}"
+Name = "BeamMP Server"
+Description = "BeamMP Default Description"
+# Comma separated, like Freeroam,Racing
+Tags = "Freeroam"
+Map = "/levels/gridmap_v2/info.json"
+# Local interface to listen on, :: means all of them
+IP = "::"
+Port = {{SERVER_PORT}}
+MaxPlayers = {{MAX_PLAYERS}}
+MaxCars = 1
+Private = {{PRIVATE}}
+AllowGuests = true
+InformationPacket = true
+LogChat = true
+ResourceFolder = "Resources"
+Debug = false
+
+[Misc]
+ImScaredOfUpdates = false
+UpdateReminderTime = "30d"

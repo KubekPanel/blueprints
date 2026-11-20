@@ -1,0 +1,83 @@
+{
+  "manifestVersion": 1,
+  "id": "com.kubek.beammp",
+  "name": "BeamMP",
+  "shortName": "BeamMP",
+  "description": "Multiplayer server for BeamNG.drive",
+  "game": "beamng",
+  "gameName": "BeamNG.drive",
+  "icon": "icon.png",
+  "author": { "name": "Kubek", "url": "https://github.com/KubekPanel" },
+  "version": "1.1.0",
+  "tags": ["beamng", "beammp"],
+  "engines": { "kubek": ">=4.0.0" },
+  "platforms": ["win32", "linux"],
+  "runtime": { "kind": "native" },
+  "variables": [
+    {
+      "key": "GAME_VERSION",
+      "label": "Version",
+      "type": "enum",
+      "options": { "from": "versions" },
+      "rules": "required",
+      "userEditable": true
+    },
+    {
+      "key": "AUTH_KEY",
+      "label": "AuthKey",
+      "description": "Get it at keymaster.beammp.com, the server won't start without it",
+      "type": "secret",
+      "rules": "required",
+      "userEditable": true
+    },
+    {
+      "key": "MAX_PLAYERS",
+      "label": "Max players",
+      "type": "number",
+      "default": 8,
+      "rules": "required|min:1",
+      "userEditable": true
+    },
+    {
+      "key": "PRIVATE",
+      "label": "Hide from the server list",
+      "type": "boolean",
+      "default": true,
+      "userEditable": true
+    }
+  ],
+  "versions": { "kind": "resolver", "module": "versions.ts" },
+  "install": {
+    "runIn": "host",
+    "steps": [
+      { "type": "download", "url": "{{DOWNLOAD_URL}}", "dest": "BeamMP-Server{{EXE_SUFFIX}}" },
+      { "type": "chmod", "path": "BeamMP-Server{{EXE_SUFFIX}}", "mode": "755" },
+      { "type": "template", "src": "ServerConfig.toml", "dest": "ServerConfig.toml" }
+    ]
+  },
+  "startup": {
+    "command": "./BeamMP-Server",
+    "commandByPlatform": {
+      "win32": "BeamMP-Server.exe",
+      "linux": "./BeamMP-Server"
+    },
+    "stop": { "type": "command", "value": "exit" }
+  },
+  "detection": {
+    "running": ["ALL SYSTEMS STARTED SUCCESSFULLY"],
+    "stopping": ["[Ss]hutting down"],
+    "crash": ["Closing in 10 seconds"]
+  },
+  "query": { "protocol": "none", "port": { "fromVariable": "SERVER_PORT" } },
+  "ports": [
+    {
+      "key": "game",
+      "label": "Game",
+      "default": 30814,
+      "protocol": "tcp+udp",
+      "primary": true
+    }
+  ],
+  "configFiles": [{ "path": "ServerConfig.toml", "parser": "toml", "label": "Server config" }],
+  "features": ["console", "backups", "files"]
+}
