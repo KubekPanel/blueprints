@@ -8,7 +8,7 @@
   "gameName": "BeamNG.drive",
   "icon": "icon.png",
   "author": { "name": "Kubek", "url": "https://github.com/KubekPanel" },
-  "version": "1.1.0",
+  "version": "1.1.1",
   "tags": ["beamng", "beammp"],
   "engines": { "kubek": ">=4.0.0" },
   "platforms": ["win32", "linux"],
@@ -61,7 +61,7 @@
       "win32": "BeamMP-Server.exe",
       "linux": "./BeamMP-Server"
     },
-    "stop": { "type": "command", "value": "exit" }
+    "stop": { "type": "command", "value": "exit", "timeoutSec": 10 }
   },
   "detection": {
     "running": ["ALL SYSTEMS STARTED SUCCESSFULLY"],
